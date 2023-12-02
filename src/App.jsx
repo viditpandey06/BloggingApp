@@ -3,11 +3,11 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  //y
+  console.log(process.env.REACT_APP_APPWRITE_URL);
   return (
     <>
-      
+     <h1>Vidit</h1> 
     </>
   )
 }
