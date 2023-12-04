@@ -93,7 +93,14 @@ export class databaseService {
       throw error;
     }
   }
-  
+  async getPosts(queries=[Query.equal("status","active")]){
+    try {
+      return await this. databases.listDocuments(config.appwriteDatabase,config.appwriteCollection,queries)
+    } catch (error) {
+      console.error();
+      throw error
+    }
+  }
 }
 const service = new databaseService();
 export default service;
