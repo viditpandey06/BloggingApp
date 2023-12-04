@@ -41,7 +41,7 @@ export class databaseService {
       const update = await this.databases.updateDocument(
         config.appwriteDatabase,
         config.appwriteCollection,
-        slug,
+        slug, //document id to be edited
         {
           title,
           content,
@@ -59,6 +59,41 @@ export class databaseService {
       throw error;
     }
   }
+  async deletePost(slug) {
+    try {
+      const delPost = await this.databases.deleteDocument(
+        config.appwriteDatabase,
+        config.appwriteCollection,
+        slug
+      );
+      if (delPost) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error();
+      throw error;
+    }
+  }
+  async getPost(slug) {
+    try {
+      const getsPost = await this.databases.deleteDocument(
+        config.appwriteDatabase,
+        config.appwriteCollection,
+        slug
+      );
+      if (getsPost) {
+        return getsPost;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error();
+      throw error;
+    }
+  }
+  
 }
 const service = new databaseService();
 export default service;
