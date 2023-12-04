@@ -5,12 +5,14 @@ export class AuthService{
 
     client = new Client();
     account;
+    userId;
     constructor(){
         this.client
         .setEndpoint(config.appwriteUrl)
         .setProject(config.appwriteProjectId)
          this.account = new Account(this.client);   
     }   
+    
     async createAccount ({email, password, name}){
         try {
        const userAccount =     await this.account.create(ID.unique(),email,name)
@@ -28,7 +30,7 @@ export class AuthService{
     async createMessageLoginUser (phone_no){
       try {
         const userAccount = await this.account.createPhoneSession(ID.unique,String(phone_no))
-        const userId = userAccount.userId;
+        this.userId = userAccount.userId;
         return userAccount;
       } catch (error) {
        console.error();
