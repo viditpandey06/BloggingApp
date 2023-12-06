@@ -29,16 +29,19 @@ export class AuthService{
     }
     async createMessageLoginUser (phone_no){
       try {
-        const userAccount = await this.account.createPhoneSession(ID.unique,String(phone_no))
+        const userAccount = await this.account.createPhoneSession(ID.unique(),String(phone_no))
         this.userId = userAccount.userId;
-        return userAccount;
+        //return userAccount;
+        return this.userId
       } catch (error) {
        console.error();
         throw error
       }
     }
-    async MessageLogin(userId,code){
+    async MessageLogin(phone_no){
         try {
+        const userId =   createMessageLoginUser(phone_no);
+        
           return await this.account.updatePhoneSession(userId,String(code));
         } catch (error) {
           console.error();
