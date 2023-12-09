@@ -93,13 +93,37 @@ export class databaseService {
       throw error;
     }
   }
-  async getPosts(queries=[Query.equal("status","active")]){
+  async getPosts(queries = [Query.equal("status", "active")]) {
     try {
-      return await this. databases.listDocuments(config.appwriteDatabase,config.appwriteCollection,queries)
+      return await this.databases.listDocuments(
+        config.appwriteDatabase,
+        config.appwriteCollection,
+        queries
+      );
     } catch (error) {
       console.error();
-      throw error
+      throw error;
     }
+  }
+  // Services for file upload
+  async uploadFile(file) {
+    try {
+      return await this.bucket.createFile(config.appwriteBucket, ID.unique());
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  async deleteFile(fileId) {
+    try {
+      await this.bucket.deleteFile(config.appwriteBucket, fileId);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  async getFilePreview(fileId){
+    return await this.bucket.getFilePreview(config.appwriteBucketId,fileId)
   }
 }
 const service = new databaseService();
